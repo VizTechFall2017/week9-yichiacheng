@@ -1,0 +1,29 @@
+.svgBox {
+    width:100vw;
+    height: 100vh;
+
+}
+
+div.tooltip {
+    font-family: 'Open Sans', sans-serif;
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    width: auto;
+    height: 30px;
+    padding: 5px;
+    color: white;
+    background: slategray;
+    border: 1px;
+    border-radius: 8;
+    pointer-events: none;
+}
+
+.header {
+    font-family: 'Open Sans', sans-serif;
+    color: black;
+    font-size: 14pt;
+    width:80vw;
+    padding: 20px;
+    text-align: left;
+}

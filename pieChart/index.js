@@ -8,9 +8,25 @@ var svg = d3.select('svg')
     .append('g')
     .attr('transform', 'translate(' + marginLeft + ',' + marginTop + ')');
 
-//set up scales to position circles using the data
-var scaleX = d3.scalePoint().domain(["16-19", "20-24", "25-34", "35-44", "45-54", "55-64","65+"]).range([0, 600]);
-var scaleY = d3.scaleLinear().domain([0,1200]).range([400, 0]);  //remember that 0,0 is at the top of the screen! 300 is the lowest value on the y axis
+var pieX = width/2 - marginLeft;
+var pieY = height/2 - marginTop;
+
+var pieGroup = svg.append('g')
+    .attr('transform', 'translate(' + pieX + ',' + pieY + ')');
+
+var pieRadius = 200;
+
+var makeArc = d3.arc()//arc是圓切出來的那部分
+    .outerRadius(pieRadius)//radius圓周部分
+    .innerRadius(0);
+
+var labelArc = d3.arc()
+    .outerRadius(pieRadius - 30)
+    .innerRadius(pieRadius - 30);
+
+var makePie = d3.pie()
+    .sort(null)//could do sort function to order, ex: from big value to small value
+    .value(function(d) { return d.total; });
 
 var nestedData = [];
 
@@ -18,6 +34,7 @@ var nestedData = [];
 svg.append("g")
     .attr('transform','translate(0,400)')  //move the x axis from the top of the y axis to the bottom
     .call(d3.axisBottom(scaleX));
+
 
 svg.append("g")
     .call(d3.axisLeft(scaleY));
@@ -27,10 +44,7 @@ svg.append("g")
 //Tell the function how to calculate x and y positions for each point, using your scale functions and the values stored in the data
 //(it doesn't matter that the data hasn't loaded yet, because this function won't run until you call it, and then it will
 //use the data that you pass it using d3)
-var makeArea = d3.area()
-    .x(function(d) { return scaleX(d.age); })
-    .y0( scaleY(0))
-    .y1(function(d) { return scaleY(d.total); });
+
 
 
 //import the data from the .csv file

@@ -35,8 +35,8 @@ var symbolPoints = [
     {angle: Math.PI * 2, r0: 30, r1: 80}
 ];
 
-var makeSymbol = d3.radialArea()
-    .angle(function(d) {
+var makeSymbol = d3.radialArea()//改變圓的形狀
+    .angle(function(d) {//開始畫裡面的東西
         return d.angle;
     })
     .innerRadius(function(d) {
@@ -46,7 +46,7 @@ var makeSymbol = d3.radialArea()
         return d.r1;
     });
 
-var symbolData = makeSymbol(symbolPoints);
+var symbolData = makeSymbol(symbolPoints);//定義形狀跟資料數據定應為點點
 
 //import the data from the .csv file
 d3.csv('./incomeData.csv', function(dataIn){
@@ -78,12 +78,12 @@ d3.csv('./incomeData.csv', function(dataIn){
         .attr('class','symbolGroups')
         .attr('transform', function(d){
             return 'translate('+ scaleX(d.age) +','+ scaleY(d.women) +')'
-        });
+        });//將形狀對應資料的數據，對應x,y軸
 
-    symbol.append('path')
+    symbol.append('path')//形狀對應什麼？多大？什麼顏色？
         .attr('d',symbolData)
         .attr('fill', "gray")
-        .attr('transform','scale(.1)');
+        .attr('transform','scale(.1)');//大小
 });
 
 

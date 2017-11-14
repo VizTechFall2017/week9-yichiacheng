@@ -30,8 +30,8 @@ var symbolPoints = [
     {angle: Math.PI * 2, r0: 30, r1: 80}
 ];
 
-var makeSymbol = d3.radialArea()
-    .angle(function(d) {
+var makeSymbol = d3.radialArea()//改變圓的形狀
+    .angle(function(d) {//開始畫裡面的東西
         return d.angle;
     })
     .innerRadius(function(d) {
@@ -41,7 +41,7 @@ var makeSymbol = d3.radialArea()
         return d.r1;
     });
 
-var symbolData = makeSymbol(symbolPoints);
+var symbolData = makeSymbol(symbolPoints);//定義形狀跟資料數據定應為點點
 
 
 queue()
@@ -60,7 +60,7 @@ queue()
         .attr('stroke-width',.2);
 
 
-    symbol = svg.selectAll('.symbolGroups')
+    symbol = svg.selectAll('.symbolGroups')//把圓形改成不同形狀，以後要更新可以拿這個團體更新
         .data(dataPoints)
         .enter()
         .append('g')

@@ -19,7 +19,7 @@ path = d3.geoPath()
 
 var stateLookup = d3.map();
 
-var sizeScale = d3.scaleLinear().range([0, 50]);
+var sizeScale = d3.scaleLinear().range([0, 50]);//圓的大小（要對應資料值的大小）
 
 queue()
     .defer(d3.json, "./cb_2016_us_state_20m.json")
@@ -39,7 +39,7 @@ queue()
 
     populationData.forEach(function(d){
         stateLookup.set(d.name, d.population);
-    });
+    });//set up the dictionary for looking up later
 
     sizeScale.domain([0, d3.max(populationData.map(function(d){return +d.population}))]);
 
@@ -51,8 +51,8 @@ queue()
     //noPR = centroids.filter(function(d) { return !isNaN(d.center[0]); });
 
     svg.selectAll('circle')
-        .data(centroids)       //bind a single data point, with the long lat of Boston
-                                                    //note that long is negative because it is a W long point!
+        .data(centroids)       //bind a single data point, with the long. & lat. of Boston. 找出每個州的中心，作為圓的中心
+                                                    //note that long is "negative" because it is a W long point!
         .enter()
         .append('circle')
         .attr('cx', function (d){
@@ -67,6 +67,7 @@ queue()
         })
         .attr('fill','purple')
         .attr('fill-opacity',.7);
+
 
   });
 
